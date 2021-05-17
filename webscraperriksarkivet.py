@@ -43,7 +43,10 @@ for result in results:
     pubdatecompare = pubdate.text.strip()
     #date_time_str = pubdatecompare
     # Publiceringsdatum enligt formatet DD MM YYYY, byter ut "svenska månadsförkortningar" mot engelska
-    pubdatecompare = str.replace(pubdatecompare,'okt','oct') or str.replace(pubdatecompare,'maj','may')
+    if (pubdatecompare.split(' ')[1] == 'okt') or (pubdatecompare.split(' ')[1] == 'maj'):
+        months = {'okt': 'oct', 'maj': 'may'}
+        for k, v in months.items():
+            pubdatecompare = pubdatecompare.replace(k,v)
     # Gör om publiceringsdatumet till ett datumobjekt.
     date_time_obj = datetime.strptime(pubdatecompare, '%d %b %Y')
     # Formaterar datumformatet till YYYY-MM-DD i en ny variabel.
